@@ -34,10 +34,10 @@
 
         <div class="form-group">
             <label for="role_id">Role</label>
-            <select name="role_id" class="form-control @error('role_id') is-invalid @enderror" required>
+            <select name="role" class="form-control @error('role_id') is-invalid @enderror" required>
                 <option value="" disabled selected>Select a role</option>
                 @foreach($roles as $role)
-                    <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                    <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>
                         {{ $role->name }}
                     </option>
                 @endforeach

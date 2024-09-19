@@ -44,9 +44,38 @@ class RoleController extends Controller
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('roles.index')->with('success', 'Data berhasil disimpan');
     }
-    public function destroy(Role $role) {
-        $role->syncPermissions([]);
-        $role->delete();
+
+    public function edit(Role $role)
+{
+    // Mengambil semua permission
+    $permissions = Permission::all();
+
+    // Mengambil permissions yang sudah dimiliki oleh role dalam bentuk array ID
+    $rolePermissions = $role->permissions->pluck('id')->toArray();
+
+    return view('admin.role.edit', compact('role', 'permissions', 'rolePermissions'));
+}
+
+    public function update(Request $request, Role $role) {
+    
+        // Update the role name
+        $role->update(['name' => $request->input('name')]);
+    
+        // Sync the permissions
+        $role->syncPermissions($request->input('permissions'));
+    
+        return redirect()->route('roles.index')->with('success', 'Data berhasil Diupdate');
     }
+
+    public function destroy(Role $role)
+{
+    // Hapus semua permissions dari role
+    $role->syncPermissions([]);
+
+    // Hapus role itu sendiri
+    $role->delete();
+
+    return redirect()->route('roles.index')->with('success', 'Role deleted successfully!');
+}
 
 }

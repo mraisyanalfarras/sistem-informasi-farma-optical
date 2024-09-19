@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     // Tampilkan semua user
     public function index() {
-        $users = User::with('role')->get(); // Include role relationship
+        $users = User::all();
         return view('admin.submenu1', compact('users'));
     }
 
@@ -31,7 +32,8 @@ class UserController extends Controller
 
         $validated['password'] = Hash::make($validated['password']); // Hash password menggunakan Hash::make()
 
-        User::create($validated);
+        $user = User::create($validated);
+        $user->assignRole($request->input('role'));
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
@@ -51,6 +53,7 @@ class UserController extends Controller
         ]);
 
         $user->update($validated);
+        $user->assignRole($request->input('role'));
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }

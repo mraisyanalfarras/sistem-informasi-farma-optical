@@ -22,7 +22,12 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role->name ?? 'N/A' }}</td> <!-- Menampilkan nama role -->
+                    <td>
+                        @foreach($user->getRoleNames() as $role)
+                            <span class="badge bg-primary">{{ $role }}</span>
+                        @endforeach
+
+                    </td> <!-- Menampilkan nama role -->
                     <td>
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">

@@ -16,9 +16,9 @@
         </div>
         <div class="mb-3">
             <label for="role" class="form-label">Role</label>
-            <select name="role_id" id="role" class="form-control" required>
+            <select name="role" id="role" class="form-control" required>
                 @foreach($roles as $role)
-                    <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
+                    <option value="{{ $role->id }}" {{ $user->getRoleNames()[0] == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
                 @endforeach
             </select>
         </div>
