@@ -27,7 +27,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="{{ route('dashboard') }}" class="app-brand-link">
-                        <h1 class="h4">Laravel Admin Starter</h1>
+                        <h1 class="h4">Aplikasi ERP</h1>
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -38,35 +38,67 @@
                 <div class="menu-inner-shadow"></div>
 
                 <ul class="menu-inner py-1">
-                    <!-- Main Menu -->
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Main Menu</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-home"></i>
-                            <div data-i18n="Menu 1">Menu 1</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="{{ route('submenu1') }}" class="menu-link">
-                                    <div>Users</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="{{ route('roles.index') }}" class="menu-link">
-                                    <div data-i18n="Sub Menu 2">Roles</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-menu"></i>
-                            <div data-i18n="Menu 2">Menu 2</div>
-                        </a>
-                    </li>
-                </ul>
+    <!-- Main Menu -->
+    <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-menu" style="color: #007bff;"></i> <!-- Ikon diubah menjadi biru -->
+            <div style="color: #ff5733;" data-i18n="Menu 1">Human Resource</div> <!-- Warna diubah menjadi oranye -->
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{ route('departments.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-building" style="color: #007bff;"></i> <!-- Ikon untuk Departemen -->
+                    <div>Departemen</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user-circle" style="color: #007bff;"></i> <!-- Ikon untuk Employees -->
+                    <div data-i18n="Sub Menu 2">Employees</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-dollar" style="color: #007bff;"></i> <!-- Ikon untuk Payroll -->
+                    <div data-i18n="Sub Menu 2">Payroll</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar" style="color: #007bff;"></i> <!-- Ikon untuk Leave -->
+                    <div data-i18n="Sub Menu 2">Leave</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-check-circle" style="color: #007bff;"></i> <!-- Ikon untuk Presence -->
+                    <div data-i18n="Sub Menu 2">Presence</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- User Management -->
+    <li class="menu-item">
+        <a href="#" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-user" style="color: #007bff;"></i> <!-- Ikon diubah menjadi biru -->
+            <div style="color: #ff5733;" data-i18n="Menu 1">User Manajemen</div> <!-- Warna diubah menjadi oranye -->
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{ route('users.index') }}" class="menu-link">
+                    <div>Users</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('roles.index') }}" class="menu-link">
+                    <div data-i18n="Sub Menu 2">Roles</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+</ul>
             </aside>
             <!-- / Menu -->
 
@@ -170,7 +202,7 @@
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
                                 © <script>document.write(new Date().getFullYear());</script>
-                                , made with ❤️ by 
+                                , made with ❤ by 
                                 <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                             </div>
                         </div>

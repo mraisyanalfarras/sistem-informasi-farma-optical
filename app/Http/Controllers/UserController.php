@@ -13,7 +13,7 @@ class UserController extends Controller
     // Tampilkan semua user
     public function index() {
         $users = User::all();
-        return view('admin.submenu1', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     // Tampilkan form untuk membuat user baru

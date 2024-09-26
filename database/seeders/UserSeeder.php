@@ -20,6 +20,10 @@ class UserSeeder extends Seeder
         ]);
         $adi->assignRole('admin');
 
+        $adi->employee->create([
+            'address'      =>'pekanbaru',
+        ]);
+
         $budi = User::updateORcreate([
             'name' => 'Budi',
             'email' => 'budi@email.com',

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -31,12 +32,11 @@ Route::get('/dashboard', function () {
 
 
     // Route untuk Submenu 1
-Route::get('/submenu1', [AdminController::class, 'submenu1'])->name('submenu1');
-
 Route::resource('users', UserController::class);
 
 Route::resource('roles', RoleController::class);
 
+Route::resource('departments', DepartmentController::class);
 
 
 // Auth routes (login, register, password reset, etc.)
