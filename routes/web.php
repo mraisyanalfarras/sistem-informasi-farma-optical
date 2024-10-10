@@ -1,7 +1,7 @@
 <?php
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,29 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Redirect to login if user is not authenticated
+// Redirect to dashboard directly without login
 Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect('/dashboard');
-    }
-    return redirect('/login');
+    return redirect('/dashboard');
 });
 
-// Dashboard route, only accessible by authenticated users
+// Dashboard route, open to all users (no authentication required)
 Route::get('/dashboard', function () {
     return view('admin.blank.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
-
-    // Route untuk Submenu 1
+// Resource routes for users, roles, and departments
 Route::resource('users', UserController::class);
-
 Route::resource('roles', RoleController::class);
-
 Route::resource('departments', DepartmentController::class);
-
-
-// Auth routes (login, register, password reset, etc.)
-require __DIR__.'/auth.php';
-
-
+Route::resource('employees', EmployeeController::class);

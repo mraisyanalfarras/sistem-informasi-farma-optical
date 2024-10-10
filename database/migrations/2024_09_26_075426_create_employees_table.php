@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('department_id')->constrained()->onDelete('restrict');
+            $table->string('address');
+            $table->string('place_of_birth')->nullable();
+            $table->date('dob')->nullable();
+            $table->enum('religion',['islam', 'Katolik', 'Protestan', 'Hindu', 'Budha', 'Konghucu']);
+            $table->enum('sex', ['Male', 'Female']);
+            $table->string('phone');
+            $table->string('salary');
             $table->timestamps();
         });
     }
