@@ -2,6 +2,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,4 @@ Route::resource('users', UserController::class);
 Route::resource('roles', RoleController::class);
 Route::resource('departments', DepartmentController::class);
 Route::resource('employees', EmployeeController::class);
+Route::resource('payroll', PayrollController::class);

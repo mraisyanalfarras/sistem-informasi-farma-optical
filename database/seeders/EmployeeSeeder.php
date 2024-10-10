@@ -19,7 +19,7 @@ class EmployeeSeeder extends Seeder
                 'user_id' => 1,
                 'department_id' => 1,
                 'address' => 'jl.santai',
-                'place_of_birth' => 'oekanbaru',
+                'place_of_birth' => 'pekanbaru',
                 'dob' =>'2004-12-02',
                 'religion' => 'Islam',
                 'sex' => 'Male',

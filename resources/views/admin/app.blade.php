@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('payroll.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-dollar" style="color: #007bff;"></i> <!-- Ikon untuk Payroll -->
                     <div data-i18n="Sub Menu 2">Payroll</div>
                 </a>

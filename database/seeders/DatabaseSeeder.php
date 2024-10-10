@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         RoleSeeder::class,
         DepartmentSeeder::class,
         UserSeeder::class,
+        PayrollSeeder::class,
+        EmployeeSeeder::class
         
         ]);
     }
