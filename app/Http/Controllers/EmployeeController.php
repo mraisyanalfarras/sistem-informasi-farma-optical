@@ -107,6 +107,11 @@ class EmployeeController extends Controller
 
     public function destroy($id)
     {
-        // Hapus employee...
+        // Hapus employee berdasarkan ID
+        DB::table('employees')->where('id', $id)->delete();
+    
+        // Redirect dengan pesan sukses
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
+    
 }

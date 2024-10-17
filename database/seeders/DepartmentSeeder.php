@@ -16,13 +16,13 @@ class DepartmentSeeder extends Seeder
                 'description' => '_',
             ],
             [
-                'name' => 'Human Resources',
+                'name' => 'Teknik Informatika',
                 'description' => '_',
             ],
         ];
         
-       foreach($departments as $departments) {
-            Department::create($departments);
+       foreach($departments as $department) {
+            Department::create($department);
         }
     }
 }
