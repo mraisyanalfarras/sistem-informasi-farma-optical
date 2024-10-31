@@ -51,4 +51,38 @@ class SendPromotionController extends Controller
         $sendPromotion = SendPromotion::with(['customer', 'promotion'])->findOrFail($id);
         return view('admin.send-promotions.show', compact('sendPromotion'));
     }
+
+    public function edit($id)
+    {
+        $sendPromotion = SendPromotion::findOrFail($id);
+        $customers = Customer::all();
+        $promotions = Promotion::all();
+        return view('admin.send-promotions.edit', compact('sendPromotion', 'customers', 'promotions'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'promotion_id' => 'required|exists:promotions,id',
+            'status' => 'required|in:sent,failed'
+        ]);
+
+        $sendPromotion = SendPromotion::findOrFail($id);
+        $sendPromotion->update([
+            'customer_id' => $request->customer_id,
+            'promotion_id' => $request->promotion_id,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('send-promotions.index')->with('success', 'Data pengiriman promosi berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $sendPromotion = SendPromotion::findOrFail($id);
+        $sendPromotion->delete();
+
+        return redirect()->route('send-promotions.index')->with('success', 'Data pengiriman promosi berhasil dihapus.');
+    }
 }

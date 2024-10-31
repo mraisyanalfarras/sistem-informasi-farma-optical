@@ -59,6 +59,20 @@
                                                class="btn btn-info btn-sm">
                                                 Detail
                                             </a>
+                                            <a href="{{ route('send-promotions.edit', $sendPromotion->id) }}"
+                                               class="btn btn-warning btn-sm">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('send-promotions.destroy', $sendPromotion->id) }}" 
+                                                  method="POST" 
+                                                  class="d-inline"
+                                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    Hapus
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty
