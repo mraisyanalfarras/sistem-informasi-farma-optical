@@ -12,40 +12,56 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        //permission untuk mengelola users
-    Permission::updateORcreate(['name' => 'show users']);
-    Permission::updateORcreate(['name' => 'add users']);
-    Permission::updateORcreate(['name' => 'edit users']);
-    Permission::updateORcreate(['name' => 'delete users']);
+        // Permission untuk mengelola users
+        Permission::updateOrCreate(['name' => 'show users']);
+        Permission::updateOrCreate(['name' => 'add users']);
+        Permission::updateOrCreate(['name' => 'edit users']);
+        Permission::updateOrCreate(['name' => 'delete users']);
 
-    //permission untuk mengelola Departemen
-    Permission::updateORcreate(['name' => 'show departments']);
-    Permission::updateORcreate(['name' => 'add departments']);
-    Permission::updateORcreate(['name' => 'edit departments']);
-    Permission::updateORcreate(['name' => 'delete departments']);
+        // Permission untuk mengelola roles
+        Permission::updateOrCreate(['name' => 'show roles']);
+        Permission::updateOrCreate(['name' => 'add roles']);
+        Permission::updateOrCreate(['name' => 'edit roles']);
+        Permission::updateOrCreate(['name' => 'delete roles']);
 
-    //permission untuk mengelola Emloyees
-    Permission::updateORcreate(['name' => 'show employee']);
-    Permission::updateORcreate(['name' => 'add employee']);
-    Permission::updateORcreate(['name' => 'edit employee']);
-    Permission::updateORcreate(['name' => 'delete employee']);
+        // Permission untuk mengelola Departemen
+        Permission::updateOrCreate(['name' => 'show departments']);
+        Permission::updateOrCreate(['name' => 'add departments']);
+        Permission::updateOrCreate(['name' => 'edit departments']);
+        Permission::updateOrCreate(['name' => 'delete departments']);
 
-    //permision untuk mengelola Payroll
-    Permission::updateORcreate(['name' => 'show payroll']);
-    Permission::updateORcreate(['name' => 'add payroll']);
-    Permission::updateORcreate(['name' => 'edit payroll']);
-    Permission::updateORcreate(['name' => 'delete payroll']);
+        // Permission untuk mengelola Employees
+        Permission::updateOrCreate(['name' => 'show employees']);
+        Permission::updateOrCreate(['name' => 'add employees']);
+        Permission::updateOrCreate(['name' => 'edit employees']);
+        Permission::updateOrCreate(['name' => 'delete employees']);
 
-    //permission untuk mengelola Leave
-    Permission::updateORcreate(['name' => 'show Leave']);
-    Permission::updateORcreate(['name' => 'add Leave']);
-    Permission::updateORcreate(['name' => 'edit Leave']);
-    Permission::updateORcreate(['name' => 'delete Leave']);
+        // Permission untuk mengelola Payroll
+        Permission::updateOrCreate(['name' => 'show payrolls']);
+        Permission::updateOrCreate(['name' => 'add payrolls']);
+        Permission::updateOrCreate(['name' => 'edit payrolls']);
+        Permission::updateOrCreate(['name' => 'delete payrolls']);
 
-    //permission untuk mengelola presence
-    Permission::updateORcreate(['name' => 'show presence']);
-    Permission::updateORcreate(['name' => 'add presence']);
-    Permission::updateORcreate(['name' => 'edit presence']);
-    Permission::updateORcreate(['name' => 'delete presence']);
+        // Permission untuk mengelola Leave
+        Permission::updateOrCreate(['name' => 'show leaves']);
+        Permission::updateOrCreate(['name' => 'add leaves']);
+        Permission::updateOrCreate(['name' => 'edit leaves']);
+        Permission::updateOrCreate(['name' => 'delete leaves']);
+
+        // Permission untuk mengelola presence
+        Permission::updateOrCreate(['name' => 'show attendances']);
+        Permission::updateOrCreate(['name' => 'add attendances']);
+        Permission::updateOrCreate(['name' => 'edit attendances']);
+        Permission::updateOrCreate(['name' => 'delete attendances']);
+
+        // Permission tambahan
+        Permission::updateOrCreate(['name' => 'manage-hr']);
+        Permission::updateOrCreate(['name' => 'manage-departments']);
+        Permission::updateOrCreate(['name' => 'manage-employees']);
+        Permission::updateOrCreate(['name' => 'manage-payroll']);
+        Permission::updateOrCreate(['name' => 'manage-leave']);
+        Permission::updateOrCreate(['name' => 'manage-attendances']);
+        Permission::updateOrCreate(['name' => 'manage-users']);
+        Permission::updateOrCreate(['name' => 'manage-roles']);
     }
 }

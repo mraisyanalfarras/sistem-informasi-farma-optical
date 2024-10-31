@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" 
+<html lang="id" class="light-style layout-menu-fixed" dir="ltr" 
       data-theme="theme-default" 
       data-assets-path="{{ asset('assets/') }}" 
       data-template="vertical-menu-template-free">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Laravel Admin Starter | Powered by Laravel 10, Bootstrap 5, Sneat Admin Template</title>
-    <meta name="description" content="" />
+    <title>Aplikasi ERP | Sistem Manajemen Karyawan</title>
+    <meta name="description" content="Sistem manajemen karyawan terintegrasi" />
 
     <!-- Include your custom styles here -->
     @include('admin.styles.style')
@@ -38,67 +38,117 @@
                 <div class="menu-inner-shadow"></div>
 
                 <ul class="menu-inner py-1">
-    <!-- Main Menu -->
-    <li class="menu-item">
-        <a href="#" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-menu" style="color: #007bff;"></i> <!-- Ikon diubah menjadi biru -->
-            <div style="color: #ff5733;" data-i18n="Menu 1">Human Resource</div> <!-- Warna diubah menjadi oranye -->
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item">
-                <a href="{{ route('departments.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-building" style="color: #007bff;"></i> <!-- Ikon untuk Departemen -->
-                    <div>Departemen</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{{ route('employees.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-user-circle" style="color: #007bff;"></i> <!-- Ikon untuk Employees -->
-                    <div data-i18n="Sub Menu 2">Employees</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{{ route('payroll.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-dollar" style="color: #007bff;"></i> <!-- Ikon untuk Payroll -->
-                    <div data-i18n="Sub Menu 2">Payroll</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{{ route('leave.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-calendar" style="color: #007bff;"></i> <!-- Ikon untuk Leave -->
-                    <div data-i18n="Sub Menu 2">Leave</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{{ route('attendance.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-check-circle" style="color: #007bff;"></i> <!-- Ikon untuk Presence -->
-                    <div data-i18n="Sub Menu 2">Presence</div>
-                </a>
-            </li>
-        </ul>
-    </li>
+                    <!-- Menu SDM -->
+                    <li class="menu-item">
+                        <a href="#" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-group"></i>
+                            <div data-i18n="Menu SDM">Sumber Daya Manusia</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('show departments')
+                            <li class="menu-item">
+                                <a href="{{ route('departments.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-building"></i>
+                                    <div>Departemen</div>
+                                </a>
+                            </li>
+                            @endcan
 
-    <!-- User Management -->
-    <li class="menu-item">
-        <a href="#" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-user" style="color: #007bff;"></i> <!-- Ikon diubah menjadi biru -->
-            <div style="color: #ff5733;" data-i18n="Menu 1">User Manajemen</div> <!-- Warna diubah menjadi oranye -->
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item">
-                <a href="{{ route('users.index') }}" class="menu-link">
-                    <div>Users</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{{ route('roles.index') }}" class="menu-link">
-                    <div data-i18n="Sub Menu 2">Roles</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-</ul>
-</ul>
+                            @can('show employees') 
+                            <li class="menu-item">
+                                <a href="{{ route('employees.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-user"></i>
+                                    <div>Karyawan</div>
+                                </a>
+                            </li>
+                            @endcan
+
+                            @can('show payrolls')
+                            <li class="menu-item">
+                                <a href="{{ route('payroll.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-money"></i>
+                                    <div>Penggajian</div>
+                                </a>
+                            </li>
+                            @endcan
+
+                            @can('show leaves')
+                            <li class="menu-item">
+                                <a href="{{ route('leave.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                                    <div>Cuti</div>
+                                </a>
+                            </li>
+                            @endcan
+
+                            @can('show attendances')
+                            <li class="menu-item">
+                                <a href="{{ route('attendance.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-time"></i>
+                                    <div>Kehadiran</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+
+                    <!-- Customer Relationship Management -->
+                    <li class="menu-item">
+                        <a href="#" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-user-voice"></i>
+                            <div data-i18n="Menu CRM">Customer Relationship Management</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="{{ route('customers.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                                    <div>Data Pelanggan</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('promotions.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-gift"></i>
+                                    <div>Promosi</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('send-promotions.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-mail-send"></i>
+                                    <div>Kirim Promosi</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Manajemen Pengguna -->
+                   
+                    <li class="menu-item">
+                        <a href="#" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-cog"></i>
+                            <div data-i18n="Menu Pengaturan">Pengaturan</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @can('show users')
+                            <li class="menu-item">
+                                <a href="{{ route('users.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-user"></i>
+                                    <div>Pengguna</div>
+                                </a>
+                            </li>
+                            @endcan
+
+                            @can('show roles')
+                            <li class="menu-item">
+                                <a href="{{ route('roles.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-key"></i>
+                                    <div>Peran & Hak Akses</div>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                
+                </ul>
             </aside>
             <!-- / Menu -->
 
@@ -117,7 +167,7 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." />
+                                <input type="text" class="form-control border-0 shadow-none" placeholder="Cari..." aria-label="Search..." />
                             </div>
                         </div>
                         <!-- /Search -->
@@ -140,8 +190,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">John Doe</span>
-                                                    <small class="text-muted">Admin</small>
+                                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                                    <small class="text-muted">{{ Auth::user()->roles->first()->name }}</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -150,34 +200,29 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                             <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">My Profile</span>
+                                            <span class="align-middle">Profil Saya</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        {{-- <a class="dropdown-item" href="{{ route('profile.settings') }}"> --}}
                                             <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                <span class="flex-grow-1 align-middle">Billing</span>
-                                                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
+                                            <span class="align-middle">Pengaturan</span>
                                         </a>
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
-                                            <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
-                                        </a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a class="dropdown-item" href="{{ route('logout') }}" 
+                                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                                <i class="bx bx-power-off me-2"></i>
+                                                <span class="align-middle">Keluar</span>
+                                            </a>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>
@@ -192,7 +237,7 @@
                     <!-- Main Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
-                            @yield('content') <!-- This is where the page-specific content will go -->
+                            @yield('content')
                         </div>
                     </div>
                     <!-- / Main Content -->
@@ -202,8 +247,8 @@
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
                                 © <script>document.write(new Date().getFullYear());</script>
-                                , made with ❤ by 
-                                <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                                Aplikasi ERP - Dibuat dengan <i class='bx bxs-heart' style='color:#ff0000'></i> oleh
+                                <a href="#" target="_blank" class="footer-link fw-bolder">Tim Pengembang</a>
                             </div>
                         </div>
                     </footer>

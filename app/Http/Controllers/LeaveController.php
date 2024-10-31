@@ -9,72 +9,98 @@ use Illuminate\Http\Request;
 class LeaveController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar cuti
      */
     public function index()
-    { 
-          $leaves = Leave::with(['employee.user'])->get(); // Eager load untuk menghindari N+1 problem
-            return view('admin.leave.index', compact('leaves'));
+    {
+        $leaves = Leave::with(['employee.user'])->latest()->paginate(10);
+        return view('admin.leave.index', compact('leaves'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan form untuk membuat cuti baru
      */
     public function create()
     {
-        $employees = Employee::with('user')->get(); // Ambil semua karyawan untuk dropdown
+        $employees = Employee::with('user')->get();
         return view('admin.leave.create', compact('employees'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data cuti baru ke database
      */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id'       => 'required|exists:employees,user_id', // Validasi jika user_id ada di tabel employees
-            'description'   => 'required|string',
+            'user_id' => 'required|exists:employees,user_id',
+            'description' => 'required|string|max:255',
             'start_of_date' => 'required|date',
-            'end_of_date'   => 'required|date|after_or_equal:start_of_date',
-            'status'        => 'required|in:pending,approved,rejected',
+            'end_of_date' => 'required|date|after_or_equal:start_of_date',
+            'status' => 'required|in:pending,approved,rejected',
         ]);
 
-        Leave::create($validatedData);
-        return redirect()->route('leave.index')->with('success', 'Cuti berhasil ditambahkan.');
+        try {
+            Leave::create($validatedData);
+            return redirect()
+                ->route('leave.index')
+                ->with('success', 'Data cuti berhasil ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat menambahkan data cuti')
+                ->withInput();
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan form untuk mengedit cuti
      */
     public function edit(Leave $leave)
     {
-        $employees = Employee::with('user')->get(); // Ambil semua karyawan untuk dropdown
+        $employees = Employee::with('user')->get();
         return view('admin.leave.edit', compact('leave', 'employees'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data cuti di database
      */
     public function update(Request $request, Leave $leave)
     {
         $validatedData = $request->validate([
-            'user_id'       => 'required|exists:employees,user_id',
-            'description'   => 'required|string',
+            'user_id' => 'required|exists:employees,user_id',
+            'description' => 'required|string|max:255', 
             'start_of_date' => 'required|date',
-            'end_of_date'   => 'required|date|after_or_equal:start_of_date',
-            'status'        => 'required|in:pending,approved,rejected',
+            'end_of_date' => 'required|date|after_or_equal:start_of_date',
+            'status' => 'required|in:pending,approved,rejected',
         ]);
 
-        $leave->update($validatedData);
-        return redirect()->route('leave.index')->with('success', 'Cuti berhasil diperbarui.');
+        try {
+            $leave->update($validatedData);
+            return redirect()
+                ->route('leave.index')
+                ->with('success', 'Data cuti berhasil diperbarui');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat memperbarui data cuti')
+                ->withInput();
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data cuti dari database
      */
     public function destroy(Leave $leave)
     {
-        $leave->delete();
-        return redirect()->route('leave.index')->with('success', 'Cuti berhasil dihapus.');
+        try {
+            $leave->delete();
+            return redirect()
+                ->route('leave.index')
+                ->with('success', 'Data cuti berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Terjadi kesalahan saat menghapus data cuti');
+        }
     }
 }

@@ -11,7 +11,6 @@ class AdminController extends Controller
         // Mengambil semua data dari tabel users
         $users = User::all();
         
-        // Mengirim data user ke view submenu1
-        return view('admin.submenu1', compact('users'));
+        
     }
 }

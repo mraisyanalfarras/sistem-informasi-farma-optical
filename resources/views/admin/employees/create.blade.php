@@ -5,15 +5,16 @@
     <h1>Add New Employee</h1>
     <form action="{{ route('employees.store') }}" method="POST">
         @csrf
-        <!-- User Selection -->
+        <!-- User Name Input -->
         <div class="form-group">
-            <label for="user_id">Select User</label>
-            <select name="user_id" class="form-control" required>
-                <option value="">-- Select User --</option>
-                @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </select>
+            <label for="name">Enter User Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <!-- User Email Input -->
+        <div class="form-group">
+            <label for="email">Enter User Email</label>
+            <input type="email" name="email" class="form-control" required>
         </div>
 
         <!-- Department Selection -->
