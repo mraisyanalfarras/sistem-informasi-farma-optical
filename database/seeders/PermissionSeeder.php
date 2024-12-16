@@ -24,11 +24,11 @@ class PermissionSeeder extends Seeder
         Permission::updateOrCreate(['name' => 'edit roles']);
         Permission::updateOrCreate(['name' => 'delete roles']);
 
-        // Permission untuk mengelola Departemen
-        Permission::updateOrCreate(['name' => 'show departments']);
-        Permission::updateOrCreate(['name' => 'add departments']);
-        Permission::updateOrCreate(['name' => 'edit departments']);
-        Permission::updateOrCreate(['name' => 'delete departments']);
+        // Permission untuk mengelola pasiens
+        Permission::updateOrCreate(['name' => 'show pasiens']);
+        Permission::updateOrCreate(['name' => 'add pasiens']);
+        Permission::updateOrCreate(['name' => 'edit pasiens']);
+        Permission::updateOrCreate(['name' => 'delete pasiens']);
 
         // Permission untuk mengelola Employees
         Permission::updateOrCreate(['name' => 'show employees']);
@@ -54,9 +54,29 @@ class PermissionSeeder extends Seeder
         Permission::updateOrCreate(['name' => 'edit attendances']);
         Permission::updateOrCreate(['name' => 'delete attendances']);
 
+         // Permission untuk mengelola frame
+         Permission::updateOrCreate(['name' => 'show frames']);
+         Permission::updateOrCreate(['name' => 'add frames']);
+         Permission::updateOrCreate(['name' => 'edit frames']);
+         Permission::updateOrCreate(['name' => 'delete frames']);
+         
+          // Permission untuk mengelola presence
+        Permission::updateOrCreate(['name' => 'show frames']);
+        Permission::updateOrCreate(['name' => 'add frames']);
+        Permission::updateOrCreate(['name' => 'edit frames']);
+        Permission::updateOrCreate(['name' => 'delete frames']);
+
+         // Permission untuk mengelola presence
+         Permission::updateOrCreate(['name' => 'show lensas']);
+         Permission::updateOrCreate(['name' => 'add lensas']);
+         Permission::updateOrCreate(['name' => 'edit lensas']);
+         Permission::updateOrCreate(['name' => 'delete lensas']);
         // Permission tambahan
         Permission::updateOrCreate(['name' => 'manage-hr']);
         Permission::updateOrCreate(['name' => 'manage-departments']);
+        Permission::updateOrCreate(['name' => 'manage-pasiens']);
+        Permission::updateOrCreate(['name' => 'manage-frames']);
+        Permission::updateOrCreate(['name' => 'manage-lenses']);
         Permission::updateOrCreate(['name' => 'manage-employees']);
         Permission::updateOrCreate(['name' => 'manage-payroll']);
         Permission::updateOrCreate(['name' => 'manage-leave']);

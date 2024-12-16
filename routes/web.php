@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\FrameController;
+use App\Http\Controllers\LensaController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SendPromotionController;
 
 /*
@@ -70,6 +73,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('customers', CustomersController::class);
+    Route::resource('pasiens', PasienController::class);
+    Route::resource('frames', FrameController::class);
+    Route::resource('lensas', LensaController::class);
     Route::resource('promotions', PromotionController::class);
     Route::resource('send-promotions', SendPromotionController::class);
     Route::get('send-all-promotions', [EmailController::class, 'sendPromotionEmails'])->name('send.all.promotions');

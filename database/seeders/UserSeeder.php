@@ -17,21 +17,21 @@ class UserSeeder extends Seeder
             'email' => 'adi@email.com',
             'password' => bcrypt('password'),
         ]);
-        $adi->assignRole('admin');
+        $adi->assignRole('super admin');
 
         $budi = User::updateOrCreate([
             'name' => 'Budi',
             'email' => 'budi@email.com',
             'password' => bcrypt('password'),
         ]);
-        $budi->assignRole('operator');
+        $budi->assignRole('admin');
 
         $cindy = User::updateOrCreate([
             'name' => 'cindy',
             'email' => 'cindy@email.com',
             'password' => bcrypt('password'),
         ]);
-        $cindy->assignRole('operator');
+        $cindy->assignRole('admin');
         $cindy->givePermissionTo('delete users');
     }
 }

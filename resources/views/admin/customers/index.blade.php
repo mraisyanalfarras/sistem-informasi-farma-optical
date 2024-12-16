@@ -6,10 +6,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Daftar Pelanggan</h3>
+                    <h3 class="card-title">Daftar Pasien</h3>
                     <div class="card-tools">
                         <a href="{{ route('customers.create') }}" class="btn btn-primary">
-                            Tambah Pelanggan
+                            Tambah Pasien
                         </a>
                     </div>
                 </div>

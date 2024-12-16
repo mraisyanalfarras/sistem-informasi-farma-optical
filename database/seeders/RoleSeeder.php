@@ -14,13 +14,13 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         // Membuat role admin dan operator
-        $admin = Role::updateOrCreate(['name' => 'admin']);
-        $operator = Role::updateOrCreate(['name' => 'operator']);
+        $super_admin = Role::updateOrCreate(['name' => 'Super Admin']);
+        $admin = Role::updateOrCreate(['name' => 'Admin']);
 
         // Memberikan semua permission kepada role admin
-        $admin->givePermissionTo(Permission::all());
+        $super_admin->givePermissionTo(Permission::all());
 
         // Memberikan permission tertentu kepada role operator
-        $operator->givePermissionTo(['show users', 'add users', 'edit users']);
+        $admin->givePermissionTo(['show users', 'add users', 'edit users']);
     }
 }

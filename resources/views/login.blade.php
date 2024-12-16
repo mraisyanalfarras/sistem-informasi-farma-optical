@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Login | Aplikasi ERP</title>
+    <title>Login | Aplikasi Farma Optical</title>
     <meta name="description" content="Sistem manajemen karyawan terintegrasi" />
     
     <!-- Favicon -->
@@ -89,7 +89,7 @@
                     <div class="card-body px-4 py-5">
                         <!-- Logo -->
                         <div class="app-brand justify-content-center mb-4">
-                            <span class="app-brand-text demo fw-bolder">Aplikasi ERP</span>
+                            <span class="app-brand-text demo fw-bolder">Aplikasi Farma Optical</span>
                         </div>
 
                         <h4 class="mb-2 text-center fw-bold">Selamat Datang! 👋</h4>

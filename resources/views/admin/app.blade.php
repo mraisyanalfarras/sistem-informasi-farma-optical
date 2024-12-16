@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Aplikasi ERP | Sistem Manajemen Karyawan</title>
+    <title>Aplikasi Farma Optical | Sistem Informasi Farma Optical</title>
     <meta name="description" content="Sistem manajemen karyawan terintegrasi" />
 
     <!-- Include your custom styles here -->
@@ -27,7 +27,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="{{ route('dashboard') }}" class="app-brand-link">
-                        <h1 class="h4">Aplikasi ERP</h1>
+                        <h1 class="h4">Sistem Informasi Farma Optical</h1>
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -45,47 +45,12 @@
                             <div data-i18n="Menu SDM">Sumber Daya Manusia</div>
                         </a>
                         <ul class="menu-sub">
-                            @can('show departments')
-                            <li class="menu-item">
-                                <a href="{{ route('departments.index') }}" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-building"></i>
-                                    <div>Departemen</div>
-                                </a>
-                            </li>
-                            @endcan
 
                             @can('show employees') 
                             <li class="menu-item">
                                 <a href="{{ route('employees.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-user"></i>
                                     <div>Karyawan</div>
-                                </a>
-                            </li>
-                            @endcan
-
-                            @can('show payrolls')
-                            <li class="menu-item">
-                                <a href="{{ route('payroll.index') }}" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-money"></i>
-                                    <div>Penggajian</div>
-                                </a>
-                            </li>
-                            @endcan
-
-                            @can('show leaves')
-                            <li class="menu-item">
-                                <a href="{{ route('leave.index') }}" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-calendar"></i>
-                                    <div>Cuti</div>
-                                </a>
-                            </li>
-                            @endcan
-
-                            @can('show attendances')
-                            <li class="menu-item">
-                                <a href="{{ route('attendance.index') }}" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-time"></i>
-                                    <div>Kehadiran</div>
                                 </a>
                             </li>
                             @endcan
@@ -96,19 +61,31 @@
                     <li class="menu-item">
                         <a href="#" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-user-voice"></i>
-                            <div data-i18n="Menu CRM">Customer Relationship Management</div>
+                            <div data-i18n="Menu CRM">Patient Relationship Management</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="{{ route('customers.index') }}" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                                    <div>Data Pelanggan</div>
+                                <a href="{{ route('pasiens.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-user-plus fa-2x text-secondary"></i>
+                                    <div>Data Patien</div>
                                 </a>
                             </li>
                             <li class="menu-item">
                                 <a href="{{ route('promotions.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-gift"></i>
                                     <div>Promosi</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('lensas.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-circle fa-2x text-purple"></i>
+                                    <div>Lensa</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('frames.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-glasses fa-2x text-dark"></i>
+                                    <div>Frame</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -125,7 +102,7 @@
                     <li class="menu-item">
                         <a href="#" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-cog"></i>
-                            <div data-i18n="Menu Pengaturan">Pengaturan</div>
+                            <div data-i18n="Menu Pengaturan">Human Department</div>
                         </a>
                         <ul class="menu-sub">
                             @can('show users')
@@ -247,7 +224,7 @@
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
                                 © <script>document.write(new Date().getFullYear());</script>
-                                Aplikasi ERP - Dibuat dengan <i class='bx bxs-heart' style='color:#ff0000'></i> oleh
+                                Sistem Informasi Farma Optical - Dibuat dengan <i class='bx bxs-heart' style='color:#ff0000'></i> oleh
                                 <a href="#" target="_blank" class="footer-link fw-bolder">Tim Pengembang</a>
                             </div>
                         </div>
