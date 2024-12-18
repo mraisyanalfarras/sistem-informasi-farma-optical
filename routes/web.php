@@ -49,7 +49,7 @@ Route::post('register', [AuthController::class, 'register']);
 
 // Rute dashboard - perlu autentikasi
 Route::get('/dashboard', function () {
-    return view('admin.blank.index');
+    return view('admin.dashboard.index');
 })->name('dashboard')->middleware('auth');
 
 // Grup rute yang memerlukan autentikasi

@@ -45,7 +45,6 @@
                             <div data-i18n="Menu SDM">Sumber Daya Manusia</div>
                         </a>
                         <ul class="menu-sub">
-
                             @can('show employees') 
                             <li class="menu-item">
                                 <a href="{{ route('employees.index') }}" class="menu-link">
@@ -64,12 +63,14 @@
                             <div data-i18n="Menu CRM">Patient Relationship Management</div>
                         </a>
                         <ul class="menu-sub">
+                            @can('show pasiens')
                             <li class="menu-item">
                                 <a href="{{ route('pasiens.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-user-plus fa-2x text-secondary"></i>
                                     <div>Data Patien</div>
                                 </a>
                             </li>
+                            @endcan
                             <li class="menu-item">
                                 <a href="{{ route('promotions.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-gift"></i>

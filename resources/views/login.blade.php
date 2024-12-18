@@ -1,187 +1,145 @@
 <!DOCTYPE html>
-<html lang="id" class="light-style customizer-hide" dir="ltr" data-theme="theme-default">
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Login | Aplikasi Farma Optical</title>
-    <meta name="description" content="Sistem manajemen karyawan terintegrasi" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Login &mdash; Inventaris Sekolah</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-
+    <!-- Custom CSS -->
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            margin: 0;
+            background: #f4f6f9;
         }
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
+
+        .login-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
+
+        .login-left {
+            flex: 1;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
         }
+
+        .login-right {
+            flex: 1;
+            background: url('../assets/img/backgrounds/18.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .greeting-text {
+            position: absolute;
+            bottom: 50px;
+            left: 30px;
+            color: #fff;
+        }
+
         .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
-            border-color: #4299e1;
+            box-shadow: none;
+            border-color: #6dd5ed;
         }
+
         .btn-primary {
-            border-radius: 10px;
-            padding: 12px;
-            font-weight: 600;
-            background: linear-gradient(45deg, #4299e1, #667eea);
+            background-color: #6dd5ed;
             border: none;
-            transition: transform 0.2s;
         }
+
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+            background-color: #5bb8d8;
         }
-        .app-brand-text {
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, #4299e1, #667eea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .form-password-toggle .input-group-text {
-            border-radius: 0 10px 10px 0;
-            cursor: pointer;
-        }
-        @media (max-width: 576px) {
-            .card {
-                margin: 1rem;
-            }
-            .container-xxl {
-                padding: 0;
-            }
-        }
+
+        .absolute-top-right {
+  position: absolute;
+  top: 20px; /* Jarak dari atas */
+  right: 20px; /* Jarak dari kanan */
+  z-index: 1000; /* Tombol berada di atas elemen lain */
+  display: flex;
+  gap: 10px; /* Jarak antar tombol */
+}
     </style>
 </head>
 
 <body>
-    <!-- Content -->
-    <div class="container-xxl">
-        <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner">
-                <!-- Login Card -->
-                <div class="card">
-                    <div class="card-body px-4 py-5">
-                        <!-- Logo -->
-                        <div class="app-brand justify-content-center mb-4">
-                            <span class="app-brand-text demo fw-bolder">Aplikasi Farma Optical</span>
-                        </div>
-
-                        <h4 class="mb-2 text-center fw-bold">Selamat Datang! 👋</h4>
-                        <p class="mb-4 text-center text-muted">Silakan masuk ke akun Anda</p>
-
-                        @if (session('status'))
-                            <div class="alert alert-success mb-3 rounded-3">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger mb-3 rounded-3">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <form class="mb-3" action="{{ route('login') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" value="{{ old('email') }}" autofocus />
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3 form-password-toggle">
-                                <label for="password" class="form-label">Password</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan password" />
-                                    <span class="input-group-text cursor-pointer"><i class="fas fa-eye"></i></span>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember" name="remember" />
-                                    <label class="form-check-label" for="remember">Ingat Saya</label>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">
-                                    <i class="fas fa-sign-in-alt me-2"></i> Masuk
-                                </button>
-                            </div>
-                        </form>
-
-                        <p class="text-center">
-                            <span class="text-muted">Belum punya akun?</span>
-                            <a href="{{ route('register') }}" class="text-primary fw-bold">
-                                Buat akun baru
-                            </a>
-                        </p>
-                    </div>
+    <div class="login-container">
+        <!-- Left Section: Login Form -->
+        <div class="absolute-top-right p-3" style="position: absolute; z-index: 1000;">
+            <a href="" class="btn btn-light" target="_self">About</a>
+            <a href="" class="btn btn-light" target="_self">Contact</a>
+        </div>
+        <div class="login-left">
+            <div class="w-100" style="max-width: 400px;">
+                <!-- Logo -->
+                <div class="text-center mb-4">
+                    <img src="../assets/img/backgrounds/kacamata.png" alt="logo" width="150" class="shadow-light rounded-circle mb-5 mt-2">
+                    <h4 class="fw-bold text-primary">Login</h4>
+                    <p class="text-muted"> Selamat Datang Farma Optical</p>
+                    <p class="text-muted">Silakan masuk ke akun Anda</p>
                 </div>
-                <!-- /Login Card -->
+                
+
+                <!-- Form Login -->
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan email Anda" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Masukkan password Anda" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+
+                <!-- Footer -->
+                <div class="text-center mt-4">
+                    <p class="text-muted small">
+                        Copyright &copy;  | Made with 💙 by Tim Developer
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Background Image & Greetings -->
+        <div class="login-right">
+            <div class="overlay"></div>
+            <div class="greeting-text">
+                <h1 class="display-4 fw-bold" id="greetings"></h1>
+                <p>Pangkalan Kerinci, Indonesia</p>
             </div>
         </div>
     </div>
-    <!-- / Content -->
 
-    <!-- Core JS -->
-    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        // Toggle password visibility
-        document.querySelector('.form-password-toggle .input-group-text').addEventListener('click', function() {
-            const passwordInput = document.querySelector('#password');
-            const icon = this.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        });
-    </script>
+    <!-- Greetings JS -->
+    
 </body>
+
 </html>
