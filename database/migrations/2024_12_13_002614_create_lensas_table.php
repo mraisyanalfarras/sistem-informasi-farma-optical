@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_lensa'); 
             $table->text('deskripsi')->nullable(); 
-            $table->string('harga');
             $table->string('material')->nullable(); 
+            $table->integer('harga_lensa');
             $table->string('jenis', 50); 
             $table->integer('stok')->default(0);
             $table->timestamps();

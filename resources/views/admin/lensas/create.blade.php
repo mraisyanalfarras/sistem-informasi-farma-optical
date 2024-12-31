@@ -38,11 +38,11 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="harga" class="form-label fw-bold">Harga</label>
+                                    <label for="harga_lensa" class="form-label fw-bold">Harga</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" id="harga" name="harga" class="form-control @error('harga') is-invalid @enderror" placeholder="Masukkan harga" value="{{ old('harga') }}" required>
-                                        @error('harga')
+                                        <input type="integer" id="harga_lensa" name="harga_lensa" class="form-control @error('harga_lensa') is-invalid @enderror" placeholder="Masukkan harga" value="{{ old('harga_lensa') }}" required min="0">
+                                        @error('harga_lensa')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -51,7 +51,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="stok" class="form-label fw-bold">Stok</label>
-                                    <input type="number" id="stok" name="stok" class="form-control @error('stok') is-invalid @enderror" placeholder="Masukkan jumlah stok" value="{{ old('stok', 0) }}" required>
+                                    <input type="integer" id="stok" name="stok" class="form-control @error('stok') is-invalid @enderror" placeholder="Masukkan jumlah stok" value="{{ old('stok', 0) }}" required min="0">
                                     @error('stok')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -63,7 +63,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="material" class="form-label fw-bold">Material</label>
-                                    <input type="text" id="material" name="material" class="form-control @error('material') is-invalid @enderror" placeholder="Masukkan material lensa" value="{{ old('material') }}">
+                                    <input type="text" id="material" name="material" class="form-control @error('material') is-invalid @enderror" placeholder="Masukkan material lensa" value="{{ old('material') }}" maxlength="255">
                                     @error('material')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -72,7 +72,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="jenis" class="form-label fw-bold">Jenis</label>
-                                    <input type="text" id="jenis" name="jenis" class="form-control @error('jenis') is-invalid @enderror" placeholder="Masukkan jenis lensa" value="{{ old('jenis') }}" required>
+                                    <input type="text" id="jenis" name="jenis" class="form-control @error('jenis') is-invalid @enderror" placeholder="Masukkan jenis lensa" value="{{ old('jenis') }}" required maxlength="50">
                                     @error('jenis')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

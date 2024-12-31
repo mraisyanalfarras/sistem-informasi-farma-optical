@@ -4,18 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Department;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch employees with their related users and departments
         $employees = Employee::with(['user', 'department'])->paginate(10);
-        
         return view('admin.employees.index', compact('employees'));
     }
 
@@ -28,36 +25,51 @@ class EmployeeController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'name' => 'required|string|max:255', // Validasi name untuk User
-        'email' => 'required|email|unique:users,email', // Validasi email untuk User
-        'department_id' => 'required|exists:departments,id',
-        'address' => 'required|string|max:255',
-        'place_of_birth' => 'nullable|string|max:255',
-        'dob' => 'nullable|date',
-        'religion' => 'required|in:Islam,Katolik,Protestan,Hindu,Budha,Konghucu',
-        'sex' => 'required|in:Male,Female',
-        'phone' => 'required|string|max:15',
-        'salary' => 'required|numeric',
-    ]);
+    {
+        // Validate input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'department_id' => 'required|exists:departments,id',
+            'address' => 'required|string|max:255',
+            'place_of_birth' => 'nullable|string|max:255',
+            'dob' => 'nullable|date',
+            'religion' => 'required|in:Islam,Katolik,Protestan,Hindu,Budha,Konghucu',
+            'sex' => 'required|in:Male,Female',
+            'phone' => 'required|string|max:15',
+            'salary' => 'required|numeric',
+            'photo' => 'required|image|mimes:jpg,jpeg,png,gif|max:5048',
+        ]);
 
-    // Buat user baru
-    $user = User::create([
-        'name' => $request->input('name'),
-        'email' => $request->input('email'),
-        'password' => bcrypt('pass') // Bisa Anda ganti dengan password lain atau minta input password
-    ]);
+        // Create the 'employee_photos' folder if it doesn't exist
+        if (!file_exists(public_path('employee_photos'))) {
+            mkdir(public_path('employee_photos'), 0777, true);
+        }
 
-    // simpan ke tabel employee
-$request->merge(['user_id' => $user->id]);
-Employee::create($request->all());
-    
+        // Create a new user
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt('pass'),
+        ]);
 
-    // Redirect ke halaman employee index dengan pesan sukses
-    return redirect()->route('employees.index')->with('success', 'Employee and user created successfully.');
-}
+        // Handle photo upload
+        $newImage = null;
+        if ($request->hasFile('photo')) {
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newImage = time() . '.' . $extension;
+            $request->file('photo')->move(public_path('employee_photos'), $newImage);
+        }
+
+        // Save employee details
+        $employeeData = $request->all();
+        $employeeData['user_id'] = $user->id;
+        $employeeData['photo'] = $newImage;
+
+        Employee::create($employeeData);
+
+        return redirect()->route('employees.index')->with('success', 'Employee and user created successfully.');
+    }
 
     public function show($id)
     {
@@ -76,7 +88,6 @@ Employee::create($request->all());
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'department_id' => 'required|exists:departments,id',
@@ -87,10 +98,32 @@ Employee::create($request->all());
             'sex' => 'required|in:Male,Female',
             'phone' => 'required|string|max:15',
             'salary' => 'required|numeric',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5048',
         ]);
-    
-        // Update employee berdasarkan ID
-        DB::table('employees')->where('id', $id)->update([
+
+        // Create the 'employee_photos' folder if it doesn't exist
+        if (!file_exists(public_path('employee_photos'))) {
+            mkdir(public_path('employee_photos'), 0777, true);
+        }
+
+        $employee = Employee::findOrFail($id);
+
+        if ($request->hasFile('photo')) {
+            if ($employee->photo) {
+                $oldPhotoPath = public_path('employee_photos/' . $employee->photo);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newImage = time() . '.' . $extension;
+            $request->file('photo')->move(public_path('employee_photos'), $newImage);
+        } else {
+            $newImage = $employee->photo;
+        }
+
+        $employee->update([
             'user_id' => $request->user_id,
             'department_id' => $request->department_id,
             'address' => $request->address,
@@ -100,21 +133,25 @@ Employee::create($request->all());
             'sex' => $request->sex,
             'phone' => $request->phone,
             'salary' => $request->salary,
-            'updated_at' => now(),
+            'photo' => $newImage,
         ]);
-    
-        // Redirect dengan pesan sukses
+
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
-    
 
     public function destroy($id)
     {
-        // Hapus employee berdasarkan ID
-        DB::table('employees')->where('id', $id)->delete();
-    
-        // Redirect dengan pesan sukses
+        $employee = Employee::findOrFail($id);
+
+        if ($employee->photo) {
+            $photoPath = public_path('employee_photos/' . $employee->photo);
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+        }
+
+        $employee->delete();
+
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
-    
 }

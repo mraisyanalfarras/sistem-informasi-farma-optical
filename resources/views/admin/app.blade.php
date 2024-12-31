@@ -9,11 +9,17 @@
     <title>Aplikasi Farma Optical | Sistem Informasi Farma Optical</title>
     <meta name="description" content="Sistem manajemen karyawan terintegrasi" />
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+
+
     <!-- Include your custom styles here -->
     @include('admin.styles.style')
 
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+
 
     <!-- Config: Mandatory theme config file -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
@@ -71,12 +77,12 @@
                                 </a>
                             </li>
                             @endcan
-                            <li class="menu-item">
+                            {{-- <li class="menu-item">
                                 <a href="{{ route('promotions.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-gift"></i>
                                     <div>Promosi</div>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="menu-item">
                                 <a href="{{ route('lensas.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-circle fa-2x text-purple"></i>
@@ -89,12 +95,12 @@
                                     <div>Frame</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            {{-- <li class="menu-item">
                                 <a href="{{ route('send-promotions.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-mail-send"></i>
                                     <div>Kirim Promosi</div>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
 

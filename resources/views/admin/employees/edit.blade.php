@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <h1>Edit Employee</h1>
-    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+    <form action="{{ route('employees.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -82,6 +82,21 @@
         <div class="form-group">
             <label for="salary">Salary</label>
             <input type="number" name="salary" class="form-control" value="{{ $employee->salary }}" required>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="form-group">
+            <label for="photo">Photo</label>
+            <input type="file" name="photo" class="form-control">
+            @if($employee->photo)
+                <div class="mt-2">
+                    <img src="{{ asset('employee_photos/' . $employee->photo) }}" 
+                         alt="Photo of {{ $employee->user->name }}" 
+                         class="img-thumbnail" 
+                         style="width: 100px; height: 100px; object-fit: cover;">
+                </div>
+                <p class="text-muted mt-2">Leave this empty if you don't want to change the photo.</p>
+            @endif
         </div>
 
         <button type="submit" class="btn btn-success">Update</button>

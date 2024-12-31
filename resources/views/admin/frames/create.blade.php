@@ -67,13 +67,26 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="jumlah" class="form-label fw-bold">Jumlah</label>
-                                    <input type="text" id="jumlah" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror" value="{{ old('jumlah') }}">
+                                    <input type="text" id="jumlah" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror" value="{{ old('jumlah') }}" required min="0">
                                     @error('jumlah')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="harga_frame" class="form-label fw-bold">Harga</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="integer" id="harga_frame" name="harga_frame" class="form-control @error('harga_frame') is-invalid @enderror" placeholder="Masukkan harga" value="{{ old('harga_frame') }}" required min="0">
+                                        @error('harga_frame')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save me-2"></i>Simpan

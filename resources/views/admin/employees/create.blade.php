@@ -7,7 +7,7 @@
             <h3 class="mb-0">Tambah Karyawan Baru</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('employees.store') }}" method="POST">
+            <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <!-- User Name Input -->
                 <div class="form-group mb-3">
@@ -113,8 +113,16 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+               <!-- Photo -->
+                <div class="form-group mb-3">
+                    <label for="photo" class="form-label fw-bold">Upload Photo</label>
+                    <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror" required accept="image/*">
+                    @error('photo')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
 
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-4">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save me-1"></i> Simpan
                     </button>

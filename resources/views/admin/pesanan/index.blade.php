@@ -1,6 +1,6 @@
 @extends('admin.app')
 
-@section('title', 'Daftar Pasien')
+@section('title', 'Daftar Pesanan')
 
 @section('content')
 <div class="container-fluid">
@@ -9,10 +9,10 @@
             <div class="card shadow-lg rounded-3">
                 <div class="card-header bg-gradient bg-white d-flex justify-content-between align-items-center py-3">
                     <h5 class="card-title mb-0 text-primary fw-bold">
-                        <i class="fas fa-users me-2"></i>Daftar Pasien
+                        <i class="fas fa-shopping-cart me-2"></i>Daftar Pesanan
                     </h5>
                     <div class="card-tools d-flex align-items-center gap-3">
-                        <form action="{{ route('pasiens.index') }}" method="GET" class="d-flex align-items-center">
+                        <form action="{{ route('pesanan.index') }}" method="GET" class="d-flex align-items-center">
                             <select class="form-select form-select-sm me-2 shadow-sm" name="per_page" id="entries" style="width: auto;" onchange="this.form.submit()">
                                 <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
                                 <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
@@ -21,8 +21,8 @@
                                 <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
                             </select>
                         </form>
-                        <a href="{{ route('pasiens.create') }}" class="btn btn-primary shadow-sm">
-                            <i class="fas fa-plus me-2"></i>Tambah Pasien
+                        <a href="{{ route('pesanan.create') }}" class="btn btn-primary shadow-sm">
+                            <i class="fas fa-plus me-2"></i>Tambah Pesanan
                         </a>
                     </div>
                 </div>
@@ -42,56 +42,58 @@
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped align-middle" id="pasiens-table">
+                        <table class="table table-hover table-striped align-middle" id="pesanan-table">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="text-center" style="width: 5%;">No</th>
-                                    <th style="min-width: 150px;">Nama</th>
-                                    <th style="min-width: 100px;">TTL</th>
-                                    <th style="width: 50px;">Usia</th>
-                                    <th style="min-width: 100px;">Jenis Kelamin</th>
-                                    <th style="min-width: 200px;">Alamat</th>
-                                    <th style="min-width: 100px;">No HP</th>
-                                    <th style="min-width: 150px;">Diagnosa</th>
-                                    <th style="min-width: 150px;">Tanggal Pemeriksaan</th>
-                                    <th style="min-width: 150px;">Tanggal Pengambilan</th>
-                                    <th class="text-center" style="width: 15%;">Aksi</th>
+                                    <th class="text-center" width="5%">No</th>
+                                    <th>Nama Pasien</th>
+                                    <th>Lensa</th>
+                                    <th>Frame</th>
+                                    <th class="text-center">Jumlah</th>
+                                    <th class="text-end">Total Harga</th>
+                                    <th class="text-center">Status</th>
+                                    <th>Tanggal Pesan</th>
+                                    <th>Tanggal Selesai</th>
+                                    <th class="text-center" width="15%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($pasiens as $patient)
+                                @forelse($pesanans as $pesanan)
                                 <tr>
-                                    <td class="text-center">{{ ($pasiens->currentPage() - 1) * $pasiens->perPage() + $loop->iteration }}</td>
-                                    <td class="fw-semibold">{{ $patient->nama_pasien }}</td>
-                                    <td>{{ $patient->ttl->format('d/m/Y') }}</td>
-                                    <td>{{ $patient->usia }}</td>
-                                    <td>
-                                        <span class="badge {{ $patient->sex === 'L' ? 'bg-info' : 'bg-pink' }}">
-                                            {{ $patient->sex === 'L' ? 'Laki-laki' : 'Perempuan' }}
+                                    <td class="text-center">{{ ($pesanans->currentPage() - 1) * $pesanans->perPage() + $loop->iteration }}</td>
+                                    <td>{{ $pesanan->pasien->nama_pasien }}</td>
+                                    <td>{{ $pesanan->lensa->nama_lensa }}</td>
+                                    <td>{{ $pesanan->frame->name_frame }}</td>
+                                    <td class="text-center">{{ $pesanan->jumlah }}</td>
+                                    <td class="text-end">Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}</td>
+                                    <td class="text-center">
+                                        <span class="badge rounded-pill bg-{{ 
+                                            $pesanan->status === 'pending' ? 'warning' :
+                                            ($pesanan->status === 'proses' ? 'info' :
+                                            ($pesanan->status === 'selesai' ? 'success' : 'primary'))
+                                        }}">
+                                            {{ ucfirst($pesanan->status) }}
                                         </span>
                                     </td>
-                                    <td>{{ $patient->alamat }}</td>
-                                    <td>{{ $patient->no_hp }}</td>
-                                    <td>{{ $patient->diagnosa }}</td>
-                                    <td>{{ $patient->tgl_pemeriksaan->format('d/m/Y') }}</td>
-                                    <td>{{ $patient->tgl_pengambilan ? $patient->tgl_pengambilan->format('d/m/Y') : '-' }}</td>
+                                    <td>{{ $pesanan->tgl_pesan->format('d/m/Y') }}</td>
+                                    <td>{{ $pesanan->tgl_selesai ? $pesanan->tgl_selesai->format('d/m/Y') : '-' }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('pasiens.show', $patient->id) }}" 
+                                            <a href="{{ route('pesanan.show', $pesanan->id) }}" 
                                                class="btn btn-info btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"
                                                title="Detail">
                                                 <i class="fas fa-eye"></i>
                                                 Show
                                             </a>
-                                            <a href="{{ route('pasiens.edit', $patient->id) }}" 
+                                            <a href="{{ route('pesanan.edit', $pesanan->id) }}" 
                                                class="btn btn-warning btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"
                                                title="Edit">
                                                 <i class="fas fa-edit"></i>
                                                 Edit
                                             </a>
-                                            <form action="{{ route('pasiens.destroy', $patient->id) }}" 
+                                            <form action="{{ route('pesanan.destroy', $pesanan->id) }}" 
                                                   method="POST" 
                                                   class="d-inline delete-form">
                                                 @csrf
@@ -100,7 +102,7 @@
                                                         class="btn btn-danger btn-sm shadow-sm"
                                                         data-bs-toggle="tooltip"
                                                         title="Hapus"
-                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">
                                                     <i class="fas fa-trash"></i>
                                                     Hapus
                                                 </button>
@@ -110,9 +112,9 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="11" class="text-center py-5 text-muted">
+                                    <td colspan="10" class="text-center py-5 text-muted">
                                         <i class="fas fa-inbox fa-3x mb-3 d-block opacity-50"></i>
-                                        <span class="fw-light">Tidak ada data pasien</span>
+                                        <span class="fw-light">Tidak ada data pesanan</span>
                                     </td>
                                 </tr>
                                 @endforelse
@@ -121,7 +123,44 @@
                     </div>
 
                     <div class="mt-4 d-flex justify-content-end">
-                        {{ $pasiens->appends(['per_page' => request('per_page')])->links('pagination::bootstrap-5') }}
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                {{-- Previous Page Link --}}
+                                @if ($pesanans->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Previous</span>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $pesanans->previousPageUrl() }}&per_page={{ request('per_page', 10) }}" rel="prev">Previous</a>
+                                    </li>
+                                @endif
+
+                                {{-- Pagination Elements --}}
+                                @foreach ($pesanans->getUrlRange(1, $pesanans->lastPage()) as $page => $url)
+                                    @if ($page == $pesanans->currentPage())
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ $page }}</span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $url }}&per_page={{ request('per_page', 10) }}">{{ $page }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                {{-- Next Page Link --}}
+                                @if ($pesanans->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $pesanans->nextPageUrl() }}&per_page={{ request('per_page', 10) }}" rel="next">Next</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Next</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -175,10 +214,6 @@
     letter-spacing: 0.5px;
 }
 
-.bg-pink {
-    background-color: #e83e8c;
-}
-
 .card {
     border: none;
     margin-bottom: 1.5rem;
@@ -189,19 +224,15 @@
     overflow-x: auto;
 }
 
-/* Pagination styling */
 .pagination {
     margin-bottom: 0;
-    gap: 5px;
 }
 
-.page-item .page-link {
-    border-radius: 0.375rem;
-    padding: 0.5rem 0.75rem;
-    color: #6c757d;
+.page-link {
+    padding: 0.375rem 0.75rem;
+    color: #0d6efd;
     background-color: #fff;
     border: 1px solid #dee2e6;
-    font-weight: 500;
 }
 
 .page-item.active .page-link {
@@ -215,17 +246,6 @@
     pointer-events: none;
     background-color: #fff;
     border-color: #dee2e6;
-}
-
-.page-link:hover {
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-    color: #0d6efd;
-}
-
-.page-item:first-child .page-link,
-.page-item:last-child .page-link {
-    padding: 0.5rem 0.75rem;
 }
 </style>
 

@@ -32,11 +32,11 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="harga" class="form-label fw-bold">Harga</label>
+                                    <label for="harga_lensa" class="form-label fw-bold">Harga</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" id="harga" name="harga" class="form-control @error('harga') is-invalid @enderror" placeholder="Masukkan harga" value="{{ old('harga', $lensa->harga) }}" required>
-                                        @error('harga')
+                                        <input type="integer" id="harga_lensa" name="harga_lensa" class="form-control @error('harga_lensa') is-invalid @enderror" placeholder="Masukkan harga" value="{{ old('harga_lensa', $lensa->harga_lensa) }}" required>
+                                        @error('harga_lensa')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

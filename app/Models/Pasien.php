@@ -36,4 +36,9 @@ class Pasien extends Model
         'tgl_pengambilan' => 'date',
         'usia' => 'integer',
     ];
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class);
+    }
 }

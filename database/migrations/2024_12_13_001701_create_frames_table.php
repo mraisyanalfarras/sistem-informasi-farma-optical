@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name_frame');
             $table->string('perusahaan');
             $table->string('jenis');
+            $table->integer('harga_frame');
             $table->string('merek');
             $table->string('jumlah')->nullable();
             $table->timestamps();

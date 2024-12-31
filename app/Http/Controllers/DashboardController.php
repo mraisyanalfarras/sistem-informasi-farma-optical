@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\frame;
-use App\Models\lensa;
+use App\Models\Frame;
+use App\Models\Lensa;
 use App\Models\Pasien;
+use App\Models\Employee;
+
+
+use App\Repositories\DashboardRepositoryInterface;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    protected $dashboardRepository;
+
+    public function __construct(DashboardRepositoryInterface $dashboardRepository)
+    {
+        $this->dashboardRepository = $dashboardRepository;
+    }
+
     public function index()
     {
-        $pasiens_count = Pasien::count();
-        $lensas_count = Lensa::count(); 
-        $frames_count = Frame::count();
-
-        return view('admin.dashboard.index', compact('pasien_count', 'lensas_count', 'frames_count'));
+        $counts = $this->dashboardRepository->getCounts();
+        return view('admin.dashboard.index', $counts);
     }
 }

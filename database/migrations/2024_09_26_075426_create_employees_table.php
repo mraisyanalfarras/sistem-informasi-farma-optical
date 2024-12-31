@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('sex', ['Male', 'Female']);
             $table->string('phone');
             $table->string('salary');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

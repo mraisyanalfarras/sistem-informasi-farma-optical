@@ -20,6 +20,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\FrameController;
 use App\Http\Controllers\LensaController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\SendPromotionController;
 
 /*
@@ -76,7 +77,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('pasiens', PasienController::class);
     Route::resource('frames', FrameController::class);
     Route::resource('lensas', LensaController::class);
+    Route::resource('pesanan', PesananController::class);
     Route::resource('promotions', PromotionController::class);
     Route::resource('send-promotions', SendPromotionController::class);
     Route::get('send-all-promotions', [EmailController::class, 'sendPromotionEmails'])->name('send.all.promotions');
 });
+
+Route::get('/pasien/search', [PasienController::class, 'search'])->name('pasien.search');

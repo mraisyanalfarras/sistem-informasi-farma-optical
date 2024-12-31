@@ -11,9 +11,10 @@ class PasienController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pasiens = Pasien::all();
+        $perPage = $request->get('per_page', 10); // Default to 10 if not set
+        $pasiens = Pasien::paginate($perPage);
         return view('admin.pasiens.index', compact('pasiens'));
     }
 
@@ -33,14 +34,14 @@ class PasienController extends Controller
         $validated = $request->validate([
             'nama_pasien' => 'required|string',
             'ttl' => 'required|date',
-            'usia' => 'required|integer',
+            'usia' => 'required|integer', 
             'sex' => 'required|in:L,P',
             'alamat' => 'required|string',
             'no_hp' => 'required|string',
             'diagnosa' => 'required|string',
             'od_sph' => 'nullable|string',
-            'od_cyl' => 'nullable|string', 
-            'od_axis' => 'nullable|string',
+            'od_cyl' => 'nullable|string',
+            'od_axis' => 'nullable|string', 
             'os_sph' => 'nullable|string',
             'os_cyl' => 'nullable|string',
             'os_axis' => 'nullable|string',
