@@ -3,72 +3,75 @@
 @section('content')
 <div class="container">
     @can('show leaves')
-    <h3>Data Cuti</h3>
+    <h3 class="mb-4">Daftar Cuti</h3>
 
     @can('add leaves')
     <a href="{{ route('leave.create') }}" class="btn btn-primary mb-3">Tambah Cuti</a>
     @endcan
 
-    <!-- Search Field -->
-    <div class="form-group mb-3">
-        <input type="text" class="form-control" placeholder="Cari..." id="search">
-    </div>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
 
-    <div class="card">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Karyawan</th>
-                        <th>Keterangan</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Selesai</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($leaves as $leave)
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $leave->employee->user->name ?? 'N/A' }}</td>
-                            <td>{{ $leave->description }}</td>
-                            <td class="text-center">{{ $leave->start_of_date->format('Y-m-d') }}</td>
-                            <td class="text-center">{{ $leave->end_of_date->format('Y-m-d') }}</td>
-                            <td class="text-center">
-                                @if($leave->status == 'pending')
-                                    <span class="badge bg-warning">Menunggu</span>
-                                @elseif($leave->status == 'approved') 
-                                    <span class="badge bg-success">Disetujui</span>
-                                @else
-                                    <span class="badge bg-danger">Ditolak</span>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                @can('edit leaves')
-                                <a href="{{ route('leave.edit', $leave->id) }}" class="btn btn-warning btn-sm">
-                                    <i class="bx bx-edit-alt"></i> Edit
-                                </a>
-                                @endcan
-                                @can('delete leaves')
-                                <form action="{{ route('leave.destroy', $leave->id) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus data ini?')">
-                                        <i class="bx bx-trash"></i> Hapus
-                                    </button>
-                                </form>
-                                @endcan
-                            </td>
+                            <th width="5%">No</th>
+                            <th width="25%">Nama Karyawan</th>
+                            <th width="20%">Keterangan</th>
+                            <th width="25%">Tanggal Mulai</th>
+                            <th width="25%">Tanggal Selesai</th>
+                            <th width="25%">Status</th>
+                            <th width="25%">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($leaves as $leave)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $leave->employee->user->name ?? 'N/A' }}</td>
+                                <td>{{ $leave->description }}</td>
+                                <td>{{ $leave->start_of_date->format('d F Y') }}</td>
+                                <td>{{ $leave->end_of_date->format('d F Y') }}</td>
+                                <td>
+                                    @if($leave->status == 'pending')
+                                        <span class="badge bg-warning">Menunggu</span>
+                                    @elseif($leave->status == 'approved') 
+                                        <span class="badge bg-success">Disetujui</span>
+                                    @else
+                                        <span class="badge bg-danger">Ditolak</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @can('edit leaves')
+                                    <a href="{{ route('leave.edit', $leave->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="bx bx-edit-alt"></i> Edit
+                                    </a>
+                                    @endcan
+                                    @can('delete leaves')
+                                    <form action="{{ route('leave.destroy', $leave->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data cuti ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="bx bx-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     @endcan

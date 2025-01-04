@@ -41,20 +41,32 @@ class UserController extends Controller
     // Tampilkan form untuk mengedit user
     public function edit(User $user) {
         $roles = Role::all();
+        if ($roles->isEmpty()) {
+            return redirect()->route('users.index')->with('error', 'No roles available. Please create roles first.');
+        }
         return view('admin.users.edit', compact('user', 'roles'));
     }
-
     // Update user yang ada
     public function update(Request $request, User $user) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            
+            'role' => 'required|exists:roles,id', // Validasi role
         ]);
 
         $user->update($validated);
-        $user->assignRole($request->input('role'));
 
+        // Cari role berdasarkan ID
+        $role = Role::find($request->input('role'));
+        if ($role) {
+            $user->syncRoles($role->name); // Sinkronkan role
+        }
+
+        // Update password jika diinputkan
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+        }
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 

@@ -71,13 +71,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('lensas.show', $lensa->id) }}" 
-                                               class="btn btn-info btn-sm shadow-sm"
-                                               data-bs-toggle="tooltip"
-                                               title="Detail">
-                                                <i class="fas fa-eye"></i>
-                                                Show
-                                            </a>
                                             <a href="{{ route('lensas.edit', $lensa->id) }}" 
                                                class="btn btn-warning btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"

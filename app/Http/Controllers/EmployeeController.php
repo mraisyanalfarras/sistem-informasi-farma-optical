@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
-use App\Models\Department;
+//use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,16 +12,14 @@ class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        $employees = Employee::with(['user', 'department'])->paginate(10);
+        $employees = Employee::with(['user'])->paginate(10);
         return view('admin.employees.index', compact('employees'));
     }
 
     public function create()
     {
         $users = User::select('id', 'name')->get();
-        $departments = Department::select('id', 'name')->get();
-
-        return view('admin.employees.create', compact('users', 'departments'));
+        return view('admin.employees.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -30,7 +28,6 @@ class EmployeeController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'department_id' => 'required|exists:departments,id',
             'address' => 'required|string|max:255',
             'place_of_birth' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
@@ -73,7 +70,7 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-        $employee = Employee::with(['user', 'department'])->findOrFail($id);
+        $employee = Employee::with(['user'])->findOrFail($id);
         return view('admin.employees.show', compact('employee'));
     }
 
@@ -81,16 +78,14 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         $users = User::select('id', 'name')->get();
-        $departments = Department::select('id', 'name')->get();
 
-        return view('admin.employees.edit', compact('employee', 'users', 'departments'));
+        return view('admin.employees.edit', compact('employee', 'users',));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'department_id' => 'required|exists:departments,id',
             'address' => 'required|string|max:255',
             'place_of_birth' => 'nullable|string|max:255',
             'dob' => 'nullable|date',
@@ -125,7 +120,6 @@ class EmployeeController extends Controller
 
         $employee->update([
             'user_id' => $request->user_id,
-            'department_id' => $request->department_id,
             'address' => $request->address,
             'place_of_birth' => $request->place_of_birth,
             'dob' => $request->dob,

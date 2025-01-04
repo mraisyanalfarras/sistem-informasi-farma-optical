@@ -12,11 +12,7 @@
             </a>
             @endcan
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Cari penggajian..." id="search">
-            </div>
-        </div>
+        
     </div>
 
     @if(session('success'))
@@ -28,7 +24,7 @@
         </div>
     @endif
 
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped table-hover">

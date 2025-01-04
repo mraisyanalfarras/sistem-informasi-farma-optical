@@ -22,9 +22,9 @@
                             </select>
                         </form>
                         @can('add employees')
-                        <a href="{{ route('employees.create') }}" class="btn btn-primary shadow-sm">
-                            <i class="fas fa-plus me-2"></i>Tambah Karyawan
-                        </a>
+                            <a href="{{ route('employees.create') }}" class="btn btn-primary shadow-sm">
+                                <i class="fas fa-plus me-2"></i>Tambah Karyawan
+                            </a>
                         @endcan
                     </div>
                 </div>
@@ -43,7 +43,6 @@
                                     <th class="text-center" style="width: 5%;">No</th>
                                     <th style="min-width: 150px;">Foto</th>
                                     <th style="min-width: 150px;">Nama</th>
-                                    <th style="min-width: 100px;">Departemen</th>
                                     <th style="min-width: 150px;">Alamat</th>
                                     <th style="min-width: 100px;">No HP</th>
                                     <th style="min-width: 100px;">Gaji</th>
@@ -65,7 +64,6 @@
                                         @endif
                                     </td>
                                     <td class="fw-semibold">{{ $employee->user->name ?? 'N/A' }}</td>
-                                    <td>{{ $employee->department->name ?? 'N/A' }}</td>
                                     <td>{{ $employee->address }}</td>
                                     <td>{{ $employee->phone }}</td>
                                     <td>Rp {{ number_format($employee->salary, 0, ',', '.') }}</td>
@@ -85,6 +83,14 @@
                                                data-bs-toggle="tooltip"
                                                title="Edit">
                                                 <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            @endcan
+                                            @can('show employees')
+                                            <a href="{{ route('employees.show', $employee->id) }}" 
+                                               class="btn btn-primary btn-sm shadow-sm"
+                                               data-bs-toggle="tooltip"
+                                               title="Edit">
+                                                <i class="fas fa-edit"></i> show
                                             </a>
                                             @endcan
                                             @can('delete employees')

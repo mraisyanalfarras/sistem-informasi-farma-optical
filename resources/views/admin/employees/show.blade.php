@@ -2,83 +2,90 @@
 
 @section('content')
 <div class="container">
-    <h3 class="mb-4">Detail Karyawan</h3>
-
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="card shadow-lg rounded-3 border-0">
+        <!-- Header Card -->
+        <div class="card-header bg-gradient bg-primary text-white py-4">
+            <h4 class="card-title mb-0 text-center fw-bold">
+                <i class="fas fa-user-circle me-2"></i> Employee Details
+            </h4>
         </div>
-    @endif
-
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <table class="table">
-                        <tr>
-                            <th width="30%">Nama</th>
-                            <td>{{ $employee->user->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ $employee->user->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Departemen</th>
-                            <td>{{ $employee->department->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Alamat</th>
-                            <td>{{ $employee->address }}</td>
-                        </tr>
-                        <tr>
-                            <th>Tempat Lahir</th>
-                            <td>{{ $employee->place_of_birth }}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <table class="table">
-                        <tr>
-                            <th width="30%">Tanggal Lahir</th>
-                            <td>{{ $employee->dob ? \Carbon\Carbon::parse($employee->dob)->format('d F Y') : '-' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Agama</th>
-                            <td>{{ $employee->religion }}</td>
-                        </tr>
-                        <tr>
-                            <th>Jenis Kelamin</th>
-                            <td>{{ $employee->sex }}</td>
-                        </tr>
-                        <tr>
-                            <th>No. Telepon</th>
-                            <td>{{ $employee->phone }}</td>
-                        </tr>
-                        <tr>
-                            <th>Gaji</th>
-                            <td>Rp {{ number_format($employee->salary, 0, ',', '.') }}</td>
-                        </tr>
-                    </table>
+        <!-- Body Card -->
+        <div class="card-body px-5 py-4">
+            <!-- Profile Section -->
+            <div class="row mb-4 text-center">
+                <div class="col-12">
+                    @if ($employee->photo)
+                        <img src="{{ asset('employee_photos/' . $employee->photo) }}" 
+                             class="img-thumbnail rounded-circle shadow-sm" 
+                             alt="{{ $employee->user->name }}" 
+                             style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #ddd;">
+                    @else
+                        <div class="placeholder rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center shadow-sm" 
+                             style="width: 150px; height: 150px; border: 3px solid #ddd;">
+                            <i class="fas fa-user fa-4x"></i>
+                        </div>
+                    @endif
+                    <h4 class="mt-3 fw-bold text-primary">{{ $employee->user->name }}</h4>
                 </div>
             </div>
-
-            <div class="mt-4">
-                <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning">
-                    <i class="bx bx-edit-alt"></i> Edit
+            <!-- Detail Section -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Employee ID</p>
+                        <h6 class="text-dark">{{ $employee->id }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Address</p>
+                        <h6 class="text-dark">{{ $employee->address }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Place of Birth</p>
+                        <h6 class="text-dark">{{ $employee->place_of_birth }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Date of Birth</p>
+                        <h6 class="text-dark">{{ \Carbon\Carbon::parse($employee->dob)->format('d M Y') }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Religion</p>
+                        <h6 class="text-dark">{{ $employee->religion }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Gender</p>
+                        <h6 class="text-dark">{{ $employee->sex }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Phone</p>
+                        <h6 class="text-dark">{{ $employee->phone }}</h6>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border p-3 rounded bg-light shadow-sm">
+                        <p class="fw-bold text-muted mb-1">Salary</p>
+                        <h6 class="text-dark">{{ number_format($employee->salary, 0, ',', '.') }} IDR</h6>
+                    </div>
+                </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="text-center mt-4">
+                <a href="{{ route('employees.index') }}" class="btn btn-secondary me-2">
+                    <i class="fas fa-arrow-left me-2"></i> Back
                 </a>
-                <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                        <i class="bx bx-trash"></i> Hapus
-                    </button>
-                </form>
-                <a href="{{ route('employees.index') }}" class="btn btn-secondary">
-                    <i class="bx bx-arrow-back"></i> Kembali
+                <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-primary">
+                    <i class="fas fa-edit me-2"></i> Edit
                 </a>
             </div>
         </div>

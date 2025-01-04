@@ -1,25 +1,31 @@
 @extends('admin.app')
 @section('content')
 <div class="container">
-    <h1>Add Payroll</h1>
-    
-    <form action="{{ route('payroll.store') }}" method="POST">
-        @csrf
-        
-        <div class="form-group">
-            <label for="user_id">Employee</label>
-            <select name="user_id" id="user_id" class="form-control" required>
-                <option value="">Select Employee</option>
-                @foreach($employees as $employee)
-                    <option value="{{ $employee->user_id }}">{{ $employee->user->name }}</option>
-                @endforeach
-            </select>
+    <div class="card shadow">
+        <div class="card-header">
+            <h3 class="mb-0">Tambah Penggajian Baru</h3>
         </div>
-        <div class="form-group">
-            <label for="salary">Salary</label>
-            <input type="number" name="salary" id="salary" class="form-control" required>
+        <div class="card-body">
+            <form action="{{ route('payroll.store') }}" method="POST" class="needs-validation" novalidate>
+                @csrf
+                
+                <div class="mb-3">
+                    <label for="user_id" class="form-label">Karyawan</label>
+                    <select name="user_id" id="user_id" class="form-select" required>
+                        <option value="">Pilih Karyawan</option>
+                        @foreach($employees as $employee)
+                            <option value="{{ $employee->user_id }}">{{ $employee->user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Gaji</label>
+                    <input type="number" name="salary" id="salary" class="form-control" required>
+                   
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+    </div>
 </div>
 @endsection

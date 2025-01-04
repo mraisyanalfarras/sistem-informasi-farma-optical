@@ -59,6 +59,22 @@
                                 </a>
                             </li>
                             @endcan
+                            @can('show leaves') 
+                            <li class="menu-item">
+                                <a href="{{ route('leave.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-user"></i>
+                                    <div>leave</div>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('show attendances')
+                            <li class="menu-item">
+                                <a href="{{ route('attendance.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-user"></i>
+                                    <div>attendance</div>
+                                </a>
+                            </li>
+                            @endcan
                         </ul>
                     </li>
 
@@ -93,6 +109,13 @@
                                 <a href="{{ route('frames.index') }}" class="menu-link">
                                     <i class="menu-icon tf-icons bx bx-glasses fa-2x text-dark"></i>
                                     <div>Frame</div>
+                                </a>
+                            </li>
+
+                            <li class="menu-item">
+                                <a href="{{ route('pesanan.index') }}" class="menu-link">
+                                    <i class="menu-icon tf-icons bx bx-glasses fa-2x text-dark"></i>
+                                    <div>Pesanan</div>
                                 </a>
                             </li>
                             {{-- <li class="menu-item">
@@ -148,13 +171,7 @@
 
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <!-- Search -->
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Cari..." aria-label="Search..." />
-                            </div>
-                        </div>
-                        <!-- /Search -->
+                        
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <!-- User -->
@@ -189,12 +206,12 @@
                                             <span class="align-middle">Profil Saya</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         {{-- <a class="dropdown-item" href="{{ route('profile.settings') }}"> --}}
-                                            <i class="bx bx-cog me-2"></i>
+                                            {{-- <i class="bx bx-cog me-2"></i>
                                             <span class="align-middle">Pengaturan</span>
-                                        </a>
-                                    </li>
+                                        </a> --}}
+                                    {{-- </li> --}} 
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>

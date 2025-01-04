@@ -16,7 +16,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             margin: 0;
-            background: url('../assets/img/backgrounds/18.jpg') no-repeat center center fixed;
+            background: url('../assets/img/backgrounds/IMG20241217173227.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
         }

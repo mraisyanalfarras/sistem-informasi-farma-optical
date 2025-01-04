@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('os_cyl')->nullable(); // CYL mata kiri
             $table->string('os_axis')->nullable(); // Axis mata kiri
             $table->string('pd')->nullable(); // Pupillary distance
+            $table->string('photo')->nullable();
             $table->date('tgl_pemeriksaan'); // Tanggal pemeriksaan mata
             $table->date('tgl_pengambilan')->nullable(); // Tanggal pengambilan kacamata (opsional)
             $table->timestamps();

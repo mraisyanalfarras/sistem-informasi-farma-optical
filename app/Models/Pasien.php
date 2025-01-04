@@ -26,6 +26,7 @@ class Pasien extends Model
         'os_cyl',
         'os_axis',
         'pd',
+        'photo',
         'tgl_pemeriksaan',
         'tgl_pengambilan',
     ];

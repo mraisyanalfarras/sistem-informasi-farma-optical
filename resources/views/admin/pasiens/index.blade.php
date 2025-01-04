@@ -21,9 +21,11 @@
                                 <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
                             </select>
                         </form>
-                        <a href="{{ route('pasiens.create') }}" class="btn btn-primary shadow-sm">
-                            <i class="fas fa-plus me-2"></i>Tambah Pasien
-                        </a>
+                        @can('add pasiens')
+                            <a href="{{ route('pasiens.create') }}" class="btn btn-primary shadow-sm">
+                                <i class="fas fa-plus me-2"></i>Tambah Pasien
+                            </a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body px-4">
@@ -55,6 +57,7 @@
                                     <th style="min-width: 150px;">Diagnosa</th>
                                     <th style="min-width: 150px;">Tanggal Pemeriksaan</th>
                                     <th style="min-width: 150px;">Tanggal Pengambilan</th>
+                                    <th style="min-width: 100px;">Foto</th> <!-- Tambahkan kolom Foto -->
                                     <th class="text-center" style="width: 15%;">Aksi</th>
                                 </tr>
                             </thead>
@@ -76,7 +79,18 @@
                                     <td>{{ $patient->tgl_pemeriksaan->format('d/m/Y') }}</td>
                                     <td>{{ $patient->tgl_pengambilan ? $patient->tgl_pengambilan->format('d/m/Y') : '-' }}</td>
                                     <td>
+                                        @if ($patient->photo)
+                                            <img src="{{ asset('storage/' . $patient->photo) }}" 
+                                                 alt="Foto {{ $patient->nama_pasien }}" 
+                                                 class="img-thumbnail" 
+                                                 style="width: 100px; height: 100px; object-fit: cover;">
+                                        @else
+                                            <span class="text-muted">Tidak ada foto</span>
+                                        @endif
+                                    </td>
+                                    <td>
                                         <div class="d-flex justify-content-center gap-2">
+                                            @can('show pasiens')
                                             <a href="{{ route('pasiens.show', $patient->id) }}" 
                                                class="btn btn-info btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"
@@ -84,6 +98,8 @@
                                                 <i class="fas fa-eye"></i>
                                                 Show
                                             </a>
+                                            @endcan
+                                            @can('edit employees')
                                             <a href="{{ route('pasiens.edit', $patient->id) }}" 
                                                class="btn btn-warning btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"
@@ -91,6 +107,8 @@
                                                 <i class="fas fa-edit"></i>
                                                 Edit
                                             </a>
+                                            @endcan
+                                            @can('delete employees')
                                             <form action="{{ route('pasiens.destroy', $patient->id) }}" 
                                                   method="POST" 
                                                   class="d-inline delete-form">
@@ -105,12 +123,13 @@
                                                     Hapus
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="11" class="text-center py-5 text-muted">
+                                    <td colspan="12" class="text-center py-5 text-muted">
                                         <i class="fas fa-inbox fa-3x mb-3 d-block opacity-50"></i>
                                         <span class="fw-light">Tidak ada data pasien</span>
                                     </td>
@@ -119,6 +138,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
 
                     <div class="mt-4 d-flex justify-content-end">
                         {{ $pasiens->appends(['per_page' => request('per_page')])->links('pagination::bootstrap-5') }}

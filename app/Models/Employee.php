@@ -19,7 +19,6 @@ class Employee extends Model
         'salary',
         'photo',  
         'user_id',
-        'department_id',
     ];
 
     // Relasi dengan User
