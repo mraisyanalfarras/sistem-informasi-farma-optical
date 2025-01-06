@@ -3,15 +3,13 @@
 @section('content')
 <div class="container">
     <div class="card shadow-lg rounded-3 border-0">
-        <!-- Header Card -->
-        <div class="card-header bg-gradient bg-primary text-white py-4">
+        <div class="card-header bg-gradient bg-success text-white py-4">
             <h4 class="card-title mb-0 text-center fw-bold">
                 <i class="fas fa-user-circle me-2"></i> Employee Details
             </h4>
         </div>
-        <!-- Body Card -->
         <div class="card-body px-5 py-4">
-            <!-- Profile Section -->
+
             <div class="row mb-4 text-center">
                 <div class="col-12">
                     @if ($employee->photo)

@@ -33,5 +33,12 @@ class UserSeeder extends Seeder
         ]);
         $cindy->assignRole('admin');
         $cindy->givePermissionTo('delete users');
+
+        $adi = User::updateOrCreate([
+            'name' => 'super admin',
+            'email' => 'superadmin@email.com',
+            'password' => bcrypt('password'),
+        ]);
+        $adi->assignRole('super admin');
     }
 }

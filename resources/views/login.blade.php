@@ -71,15 +71,14 @@
             display: flex;
             gap: 10px;
         }
+
+        .alert {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
-    {{-- <div class="absolute-top-right p-3">
-        <a href="" class="btn btn-light" target="_self">About</a>
-        <a href="" class="btn btn-light" target="_self">Contact</a>
-    </div> --}}
-
     <div class="login-container">
         <div class="login-card">
             <!-- Logo -->
@@ -90,12 +89,35 @@
                 <p class="text-muted">Silakan masuk ke akun Anda</p>
             </div>
 
+            <!-- Display Errors -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Form Login -->
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan email Anda" required>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan email Anda" value="{{ old('email') }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>

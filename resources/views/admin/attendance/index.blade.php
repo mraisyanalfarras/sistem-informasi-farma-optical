@@ -13,11 +13,6 @@
             </a>
             @endcan
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Cari absensi..." id="search">
-            </div>
-        </div>
     </div>
 
     @if(session('success'))

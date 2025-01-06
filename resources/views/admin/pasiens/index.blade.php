@@ -57,7 +57,7 @@
                                     <th style="min-width: 150px;">Diagnosa</th>
                                     <th style="min-width: 150px;">Tanggal Pemeriksaan</th>
                                     <th style="min-width: 150px;">Tanggal Pengambilan</th>
-                                    <th style="min-width: 100px;">Foto</th> <!-- Tambahkan kolom Foto -->
+                                    {{-- <th style="min-width: 100px;">Foto</th> <!-- Tambahkan kolom Foto --> --}}
                                     <th class="text-center" style="width: 15%;">Aksi</th>
                                 </tr>
                             </thead>
@@ -78,7 +78,7 @@
                                     <td>{{ $patient->diagnosa }}</td>
                                     <td>{{ $patient->tgl_pemeriksaan->format('d/m/Y') }}</td>
                                     <td>{{ $patient->tgl_pengambilan ? $patient->tgl_pengambilan->format('d/m/Y') : '-' }}</td>
-                                    <td>
+                                    {{-- <td>
                                         @if ($patient->photo)
                                             <img src="{{ asset('storage/' . $patient->photo) }}" 
                                                  alt="Foto {{ $patient->nama_pasien }}" 
@@ -87,7 +87,7 @@
                                         @else
                                             <span class="text-muted">Tidak ada foto</span>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
                                             @can('show pasiens')
@@ -99,7 +99,7 @@
                                                 Show
                                             </a>
                                             @endcan
-                                            @can('edit employees')
+                                            @can('edit pasiens')
                                             <a href="{{ route('pasiens.edit', $patient->id) }}" 
                                                class="btn btn-warning btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"
@@ -108,7 +108,7 @@
                                                 Edit
                                             </a>
                                             @endcan
-                                            @can('delete employees')
+                                            @can('delete pasiens')
                                             <form action="{{ route('pasiens.destroy', $patient->id) }}" 
                                                   method="POST" 
                                                   class="d-inline delete-form">

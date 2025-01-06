@@ -30,7 +30,7 @@ class AuthController extends Controller
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
-        ]);
+        ])->with('error', 'Gagal login, silakan periksa kembali email dan password Anda.');
     }
 
     // Proses logout
@@ -39,7 +39,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/')->with('success', 'Anda berhasil logout.');
     }
 
     // Menampilkan halaman registrasi
@@ -64,6 +64,6 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('success', 'Registrasi berhasil, selamat datang di dashboard!');
     }
 }

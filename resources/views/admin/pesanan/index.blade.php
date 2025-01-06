@@ -79,13 +79,6 @@
                                     <td>{{ $pesanan->tgl_selesai ? $pesanan->tgl_selesai->format('d/m/Y') : '-' }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('pesanan.show', $pesanan->id) }}" 
-                                               class="btn btn-info btn-sm shadow-sm"
-                                               data-bs-toggle="tooltip"
-                                               title="Detail">
-                                                <i class="fas fa-eye"></i>
-                                                Show
-                                            </a>
                                             <a href="{{ route('pesanan.edit', $pesanan->id) }}" 
                                                class="btn btn-warning btn-sm shadow-sm"
                                                data-bs-toggle="tooltip"

@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
             <div class="card shadow-lg rounded-3">
                 <div class="card-header bg-gradient bg-white py-3">
                     <h5 class="card-title mb-0 text-primary fw-bold">
@@ -13,53 +13,50 @@
                     </h5>
                 </div>
                 <div class="card-body px-4">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('pasiens.update', $pasien->id) }}" method="POST">
+                    <form action="{{ route('pasiens.update', $pasien->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-3">
-                            <label for="nama_pasien" class="form-label">Nama Pasien</label>
-                            <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" value="{{ old('nama_pasien', $pasien->nama_pasien) }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ttl" class="form-label">Tanggal Lahir</label>
-                            <input type="date" class="form-control" id="ttl" name="ttl" value="{{ old('ttl', $pasien->ttl->format('Y-m-d')) }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="usia" class="form-label">Usia</label>
-                            <input type="number" class="form-control" id="usia" name="usia" value="{{ old('usia', $pasien->usia) }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="sex" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" id="sex" name="sex" required>
-                                <option value="L" {{ old('sex', $pasien->sex) == 'L' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="P" {{ old('sex', $pasien->sex) == 'P' ? 'selected' : '' }}>Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <textarea class="form-control" id="alamat" name="alamat" rows="3" required>{{ old('alamat', $pasien->alamat) }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="no_hp" class="form-label">No HP</label>
-                            <input type="text" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $pasien->no_hp) }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="diagnosa" class="form-label">Diagnosa</label>
-                            <textarea class="form-control" id="diagnosa" name="diagnosa" rows="3" required>{{ old('diagnosa', $pasien->diagnosa) }}</textarea>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="nama_pasien" class="form-label">Nama Pasien</label>
+                                    <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" value="{{ old('nama_pasien', $pasien->nama_pasien) }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ttl" class="form-label">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="ttl" name="ttl" value="{{ old('ttl', $pasien->ttl) }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="usia" class="form-label">Usia</label>
+                                    <input type="number" class="form-control" id="usia" name="usia" value="{{ old('usia', $pasien->usia) }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sex" class="form-label">Jenis Kelamin</label>
+                                    <select class="form-select" id="sex" name="sex" required>
+                                        <option value="L" {{ old('sex', $pasien->sex) == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="P" {{ old('sex', $pasien->sex) == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="alamat" class="form-label">Alamat</label>
+                                    <textarea class="form-control" id="alamat" name="alamat" rows="3" required>{{ old('alamat', $pasien->alamat) }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="no_hp" class="form-label">No HP</label>
+                                    <input type="text" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp', $pasien->no_hp) }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="diagnosa" class="form-label">Diagnosa</label>
+                                    <textarea class="form-control" id="diagnosa" name="diagnosa" rows="3" required>{{ old('diagnosa', $pasien->diagnosa) }}</textarea>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Eye examination fields -->
+                        <hr class="my-4">
+                        <h5 class="text-primary fw-bold">Pemeriksaan Mata</h5>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -95,20 +92,27 @@
                             <input type="text" class="form-control" id="pd" name="pd" value="{{ old('pd', $pasien->pd) }}">
                         </div>
 
-                        <!-- Dates fields -->
-                        <div class="mb-3">
-                            <label for="tgl_pemeriksaan" class="form-label">Tanggal Pemeriksaan</label>
-                            <input type="date" class="form-control" id="tgl_pemeriksaan" name="tgl_pemeriksaan" value="{{ old('tgl_pemeriksaan', $pasien->tgl_pemeriksaan->format('Y-m-d')) }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tgl_pengambilan" class="form-label">Tanggal Pengambilan</label>
-                            <input type="date" class="form-control" id="tgl_pengambilan" name="tgl_pengambilan" value="{{ old('tgl_pengambilan', $pasien->tgl_pengambilan ? $pasien->tgl_pengambilan->format('Y-m-d') : '') }}">
+                        <hr class="my-4">
+                        <h5 class="text-primary fw-bold">Detail Pemeriksaan</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="tgl_pemeriksaan" class="form-label">Tanggal Pemeriksaan</label>
+                                    <input type="date" class="form-control" id="tgl_pemeriksaan" name="tgl_pemeriksaan" value="{{ old('tgl_pemeriksaan', $pasien->tgl_pemeriksaan) }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="tgl_pengambilan" class="form-label">Tanggal Pengambilan</label>
+                                    <input type="date" class="form-control" id="tgl_pengambilan" name="tgl_pengambilan" value="{{ old('tgl_pengambilan', $pasien->tgl_pengambilan) }}">
+                                </div>
+                            </div>
                         </div>
 
-                    
-
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{ route('pasiens.index') }}" class="btn btn-secondary">Batal</a>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a href="{{ route('pasiens.index') }}" class="btn btn-secondary">Batal</a>
+                        </div>
                     </form>
                 </div>
             </div>
