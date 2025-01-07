@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PasienRequest;
+use App\Http\Resources\PasienResource;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 
@@ -10,81 +12,54 @@ class PasienController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $pasiens = Pasien::all();
-        return response()->json($pasiens);
+        // Mengambil semua pasien yang terbaru
+        $pasiens = Pasien::latest()->get();
+        // Mengembalikan data dalam bentuk resource collection
+        return PasienResource::collection($pasiens);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PasienRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:pasiens,email',
-            'phone' => 'required',
-            'address' => 'required',
-        ]);
-
-        $pasien = Pasien::create($validatedData);
-
-        return response()->json($pasien, 201);
+        // Menyimpan data pasien baru
+        $pasien = Pasien::create($request->validated());
+        // Mengembalikan pasien yang telah dibuat dalam bentuk resource
+        return PasienResource::make($pasien);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pasien $pasien)
     {
-        $pasien = Pasien::findOrFail($id);
-        return response()->json($pasien);
+        // Menampilkan data pasien tertentu dalam bentuk resource
+        return PasienResource::make($pasien);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PasienRequest $request, Pasien $pasien)
     {
-        $pasien = Pasien::findOrFail($id);
-
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:pasiens,email,' . $pasien->id,
-            'phone' => 'required',
-            'address' => 'required',
-        ]);
-
-        $pasien->update($validatedData);
-
-        return response()->json($pasien);
+        // Memperbarui data pasien
+        $pasien->update($request->validated());
+        // Mengembalikan data pasien yang telah diperbarui dalam bentuk resource
+        return PasienResource::make($pasien);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pasien $pasien)
     {
-        $pasien = Pasien::findOrFail($id);
+        // Menghapus data pasien
         $pasien->delete();
-
-        return response()->json(null, 204);
+        // Mengembalikan response dengan status no content (204)
+        return response()->noContent();
     }
 }

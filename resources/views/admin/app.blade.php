@@ -114,7 +114,7 @@
 
                             <li class="menu-item">
                                 <a href="{{ route('pesanan.index') }}" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-glasses fa-2x text-dark"></i>
+                                    <i class="menu-icon tf-icons bx bx-list-check fa-2x text-dark"></i>
                                     <div>Pesanan</div>
                                 </a>
                             </li>
